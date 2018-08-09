@@ -21,23 +21,36 @@ public class JavaThreadKnower {
 
     public static void tReadMusic(){
 
-        new Thread(){
+        Thread task  = new Thread(){
             public void run(){
                 listenMusic();
             }
-        }.start();
+        };
+        task.start();
         browseNews();
     }
 
     public static void listenMusic(){
         for (;;){
             System.out.println("listenning music");
+            System.out.println(Thread.currentThread().getName());
+            System.out.println(Thread.currentThread().getId());
+            System.out.println(Thread.currentThread().getState());
+            System.out.println(Thread.currentThread().getPriority());
+            System.out.println("#####");
+
             sleep(1);
         }
     }
     public static void browseNews(){
         for (;;){
             System.out.println("reading news");
+
+            System.out.println(Thread.currentThread().getName());
+            System.out.println(Thread.currentThread().getId());
+            System.out.println(Thread.currentThread().getState());
+            System.out.println(Thread.currentThread().getPriority());
+            System.out.println("#####");
             sleep(1);
         }
     }
