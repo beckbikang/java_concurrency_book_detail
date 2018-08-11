@@ -43,6 +43,6 @@ class LocalRunner implements Runnable{
         System.out.println(name+"end:"+date);
         Date d = local.get();
         System.out.println(name+" local data:"+d);
-
+        local.remove();
     }
 }
