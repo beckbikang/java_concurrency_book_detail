@@ -8,7 +8,7 @@ public class Sleeper {
         try{
             TimeUnit.SECONDS.sleep(second);
         }catch (InterruptedException e){
-            System.out.println("sleep InterruptedException");
+            System.out.println("catch sleep InterruptedException");
             e.printStackTrace();
         }
     }
