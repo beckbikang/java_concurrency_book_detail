@@ -8,9 +8,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest{
     public static void main(String[] args){
-        //tlock();
+        tlock();
         //tlockMore();
-        tLockLock();
+        //tLockLock();
     }
 
     /**
@@ -33,7 +33,7 @@ public class LockTest{
             Thread thread = new Thread(new Task(name, lockData));
             thread.start();
         }
-        Sleeper.sleep(10);
+        Sleeper.sleep(30);
     }
     public static void tlockMore(){
         LockData2 lockData = new LockData2();
@@ -86,14 +86,30 @@ class LockData2{
 }
 
 class LockData{
-    private final Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock(true);
 
     public void printData() {
         lock.lock();
         try {
-            System.out.printf("%s-%s\n", Thread.currentThread().getName(), Thread.currentThread().getState());
+            Long timeNum = (long)(Math.random()*10000);
+            Thread.sleep(timeNum);
+            System.out.printf("%s-%s-%d\n", Thread.currentThread().getName(), Thread.currentThread().getState(),
+                    timeNum/1000);
 
-            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
+
+        lock.lock();
+        try {
+
+            Long timeNum = (long)(Math.random()*10000);
+            Thread.sleep(timeNum);
+            System.out.printf("%s-%s-%d\n", Thread.currentThread().getName(),
+                    Thread.currentThread().getState(),timeNum/1000);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
