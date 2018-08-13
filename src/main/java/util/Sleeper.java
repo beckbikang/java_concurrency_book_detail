@@ -12,4 +12,12 @@ public class Sleeper {
             e.printStackTrace();
         }
     }
+    public static void msleep(int millSecond){
+        try{
+            TimeUnit.MILLISECONDS.sleep(millSecond);
+        }catch (InterruptedException e){
+            System.out.println("catch sleep InterruptedException");
+            e.printStackTrace();
+        }
+    }
 }
