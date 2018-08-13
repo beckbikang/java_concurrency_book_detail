@@ -9,6 +9,9 @@ public class CompletionServiceTest {
     public static void main(String[] args) throws Exception{
         ThreadPoolExecutor threadPoolExecutor =
                 (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
+
+        threadPoolExecutor.setRejectedExecutionHandler(new Handle());
         CompletionService<String> cs = new ExecutorCompletionService<>(threadPoolExecutor);
         Meta meta = new Meta();
         CSend cSend = new CSend(cs);
@@ -43,6 +46,14 @@ public class CompletionServiceTest {
         threadPoolExecutor.shutdown();
 
 
+
+    }
+}
+
+class Handle implements RejectedExecutionHandler{
+    @Override
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+        System.out.println("xxx");
     }
 }
 
