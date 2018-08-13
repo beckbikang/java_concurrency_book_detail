@@ -5,10 +5,7 @@ import util.Sleeper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 public class CallFutureTest {
 
@@ -27,20 +24,30 @@ public class CallFutureTest {
         }
         Sleeper.sleep(3);
         do{
-            System.out.printf("getCompletedTaskCount:%d\n",
+            System.out.printf("getCompletedTaskCount:%d ",
                     threadPoolExecutor.getCompletedTaskCount());
             for (int i = 0;i < taskNum;i++){
                 Future<Integer> future = resultList.get(i);
-                System.out.printf("task:%d:%s\t",i,future.isDone());
-                if(future.isDone()){
-                    System.out.printf("result:%d",(Integer)future.get().intValue());
-                }
+                System.out.printf("task:%d :%s\t",i,future.isDone());
                 System.out.println();
             }
-            Sleeper.msleep(500);
+            Sleeper.msleep(10);
 
         }while (threadPoolExecutor.getCompletedTaskCount() < resultList.size());
 
+        for (Future f: resultList){
+            int ret = 0;
+            try {
+
+                Integer integer = (Integer)f.get();
+                ret = integer.intValue();
+            }catch (ExecutionException e){
+                e.printStackTrace();
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.printf("vale=%d\n", ret);
+        }
 
         threadPoolExecutor.shutdown();
 
