@@ -84,6 +84,7 @@ class Task extends RecursiveAction{
 
     public void doSomething(){
         for(int i=start;i < end; i++){
+            System.out.println(i+",");
             Ceil ceil = ceils.get(i);
             ceil.add(addNum);
         }
