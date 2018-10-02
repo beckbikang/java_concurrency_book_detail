@@ -8,7 +8,7 @@ public class ThreadGroupTest {
 
         ThreadGroup threadGroup = new ThreadGroup("group1");
         for(int i= 0;i < 5;i++){
-            String name = "thread:"+i;
+            String name   = "thread:"+i;
             Thread thread = new Thread(threadGroup, new Task(name));
             thread.start();
         }
@@ -22,10 +22,7 @@ public class ThreadGroupTest {
 }
 
 
-
-
-
-class Task implements Runnable{
+class Task implements Runnable {
 
     private String name;
     Task(String name){

@@ -14,7 +14,7 @@ public class LockTest{
     }
 
     /**
-     * 可冲入锁
+     * 可重入锁
      */
     public static void tLockLock(){
         Lock lock = new ReentrantLock();
