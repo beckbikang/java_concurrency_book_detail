@@ -11,7 +11,7 @@ public class PutstreamTest {
 
     /**
      * 输出数据
-     * 
+     *
      */
     public static void woutput(){
 
