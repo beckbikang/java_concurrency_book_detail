@@ -26,6 +26,7 @@ public class ContainerDemo {
 	}
 	
 	public static void main(String[] args) {
+		usingSimpleContainer();
 		usingSimpleContainer2();
 	}
 }
