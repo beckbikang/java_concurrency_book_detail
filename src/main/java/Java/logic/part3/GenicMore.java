@@ -37,9 +37,54 @@ public class GenicMore {
         pair2DynamicArray.add(pair2);
         System.out.println("pair2DynamicArray len:"+pair2DynamicArray.getLen());
 
+
+        //泛型的比较
+        Integer[] arr = new Integer[]{1,3,4,5,6};
+        int f = 3;
+
+        //泛型方法
+        System.out.println("index="+indexOf(arr,f));
+        Pair2<String,Integer> pair21 = makePair2("beck",31);
+        System.out.println(pair21.getFirst()+" "+pair21.getSecond());
+
+    }
+
+    //单个数据类型的泛型
+    public static <T> int indexOf(T[] arr, T e){
+        for (int i =0; i < arr.length; i++){
+            if(arr[i].equals(e)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //多个数据类型的泛型
+    public static <U,V>  Pair2<U,V> makePair2(U u,V v){
+        return new Pair2<>(u,v);
     }
 }
 
+//泛型接口
+interface Comparable2<E>{
+    public int compareTo(E e);
+
+}
+
+interface Comparabletor2<E>{
+    public int compareTo(E e1, E e2);
+    boolean equals(Object o);
+}
+
+/*
+final class Integer2 extends Number implements Comparable2<Integer2>{
+    public int compareTo(Integer2 integer2){
+        return compareTo(integer2);
+    }
+}
+*/
+
+//动态数组
 class DynamicArray<E>{
 
     private static final int DEFAULT_ARRAY_SIZE = 10;
