@@ -37,6 +37,10 @@ public class GenicMore {
         pair2DynamicArray.add(pair2);
         System.out.println("pair2DynamicArray len:"+pair2DynamicArray.getLen());
 
+        //接口使用
+        IntAClass intAClass = new IntAClass(12);
+        System.out.println("subt="+intAClass.subt(1));
+
 
         //泛型的比较
         Integer[] arr = new Integer[]{1,3,4,5,6};
@@ -51,16 +55,58 @@ public class GenicMore {
         NumberPair<Integer,Double> numberPair = new NumberPair<>(1,2.1);
         System.out.println("NumberPair:"+numberPair.getFirst()+" "+numberPair.getSecond());
 
+        //指定为number的子类
+        //NumberPair<String, Integer> numberPair1 = new NumberPair<String, Integer>();
+
         //泛型上限是某一个接口
         Integer[] integersArr = new Integer[]{1,3,4,5,6};
         Integer integer = maxData(integersArr);
         System.out.println("max:"+integer);
 
 
+        //上界为其他类型
+        //T 继承了E ，这是一种向上转型
+        DynamicArray<Number> dynamicArray1 = new DynamicArray<>();
+        DynamicArray<Integer> dynamicArray2 = new DynamicArray<>();
+        dynamicArray2.add(12);
+        dynamicArray2.add(34);
+        dynamicArray1.addAll(dynamicArray2);
+        dynamicArray1.addAll3(dynamicArray2);
+        System.out.println("dynamicArray1 len="+dynamicArray1.getLen());
+        //只能读不能写
+        DynamicArray<?extends Number> dynamicArray3 = new DynamicArray<>();
+        //dynamicArray3.add(123);
+
+        //需要写入的情况
+        DynamicArray<Number> dynamicArray22 = new DynamicArray<>();
+        DynamicArray<Integer> dynamicArray11 = new DynamicArray<>();
+        dynamicArray11.add(1);
+        dynamicArray11.add(2);
+        //拷贝失败
+        // dynamicArray11.copyTo(dynamicArray22);
+        dynamicArray11.copyTo2(dynamicArray22);
+
+        //泛型与继承
+        DynamicArray<Son> sonDynamicArray = new DynamicArray<>();
+        sonDynamicArray.add(new Son(1));
+        sonDynamicArray.add(new Son(2));
+        //DynamicArray.max2(sonDynamicArray);
+        Son son = DynamicArray.max(sonDynamicArray);
+
+
+        //运行时信息
+        Pair<String> pair11 = new Pair<>("1","2");
+        Pair<Integer> pair22 = new Pair<>(1,2);
+        System.out.println(pair11.getClass() == Pair.class);
+        System.out.println(pair22.getClass() == Pair.class);
+        System.out.println(pair22.getClass() == pair11.getClass());
+
+
     }
 
-    //上届为指定的接口
 
+
+    //上届为指定的接口
     public static <T extends Comparable> T maxData(T[] arr) {
         T max = arr[0];
         for (int i = 0; i < arr.length; i++) {
@@ -69,11 +115,6 @@ public class GenicMore {
             }
         }
         return max;
-    }
-
-    public static void tt(){
-        System.out.println("test genic extends interface");
-        System.out.println("max:"+maxIt(new Integer[]{1,3,2,46,72,33}));
     }
 
     public static <T extends Comparable<T>> T maxIt(T[] arr){
@@ -86,9 +127,9 @@ public class GenicMore {
         return max;
     }
 
-    //单个数据类型的泛型
+    //泛型方法
     public static <T> int indexOf(T[] arr, T e){
-        for (int i =0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++){
             if(arr[i].equals(e)){
                 return i;
             }
@@ -113,6 +154,20 @@ interface Comparabletor2<E>{
     boolean equals(Object o);
 }
 
+interface IntA<T>{
+    public T subt(T t);
+}
+
+class IntAClass implements IntA<Integer>{
+    int i;
+    IntAClass(int i){
+        this.i = i;
+    }
+    public Integer subt(Integer t){
+        return i - t.intValue();
+    }
+}
+
 /*
 final class Integer2 extends Number implements Comparable2<Integer2>{
     public int compareTo(Integer2 integer2){
@@ -120,6 +175,31 @@ final class Integer2 extends Number implements Comparable2<Integer2>{
     }
 }
 */
+
+class Father implements Comparable<Father>{
+    private int sortOrder;
+    public Father(int s){
+        this.sortOrder = s;
+    }
+
+    public int compareTo(Father f){
+        if(sortOrder < f.sortOrder){
+            return -1;
+        }else if(sortOrder > f.sortOrder){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+class Son extends Father{
+    public Son(int sortOrder){
+        super(sortOrder);
+    }
+}
+
+
 
 //动态数组
 class DynamicArray<E>{
@@ -170,7 +250,55 @@ class DynamicArray<E>{
         return size;
     }
 
-    //todo 添加类型的匹配
+    public <T extends E>void addAll(DynamicArray<T> c){
+        for (int i=0;i<c.size; i++){
+            add(c.get(i));
+        }
+    }
+
+    public void addAll2(DynamicArray<E> c){
+        for (int i=0;i<c.size; i++){
+            add(c.get(i));
+        }
+    }
+
+    public void addAll3(DynamicArray<?extends E> c){
+        for (int i=0;i<c.size; i++){
+            add(c.get(i));
+        }
+    }
+
+    public void copyTo(DynamicArray<E> dest){
+        for (int i=0;i<size; i++){
+            dest.add(get(i));
+        }
+    }
+
+    public void copyTo2(DynamicArray<? super E> dest){
+        for (int i=0;i<size; i++){
+            dest.add(get(i));
+        }
+    }
+
+    public static <T extends Comparable> T max2(DynamicArray<T> arr){
+        T max = arr.get(0);
+        for (int i = 0; i < arr.getLen(); i++) {
+            if(arr.get(i).compareTo(max) > 0){
+                max = arr.get(i);
+            }
+        }
+        return max;
+    }
+
+    public static <T extends Comparable<? super T>> T max(DynamicArray<T> arr){
+        T max = arr.get(0);
+        for (int i = 0; i < arr.getLen(); i++) {
+            if(arr.get(i).compareTo(max) > 0){
+                max = arr.get(i);
+            }
+        }
+        return max;
+    }
 
     //解析通配符
 
