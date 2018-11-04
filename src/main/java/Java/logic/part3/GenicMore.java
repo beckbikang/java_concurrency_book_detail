@@ -47,6 +47,28 @@ public class GenicMore {
         Pair2<String,Integer> pair21 = makePair2("beck",31);
         System.out.println(pair21.getFirst()+" "+pair21.getSecond());
 
+        //指定方法的范围
+        NumberPair<Integer,Double> numberPair = new NumberPair<>(1,2.1);
+        System.out.println("NumberPair:"+numberPair.getFirst()+" "+numberPair.getSecond());
+
+        //泛型上限是某一个接口
+        Integer[] integersArr = new Integer[]{1,3,4,5,6};
+        Integer integer = maxData(integersArr);
+        System.out.println("max:"+integer);
+
+
+    }
+
+    //上届为指定的接口
+
+    public static <T extends Comparable> T maxData(T[] arr){
+        T max = arr[0];
+        for (int i = 0;i < arr.length; i++){
+            if(arr[i].compareTo(max) > 0){
+                max = arr[i];
+            }
+        }
+        return max;
     }
 
     //单个数据类型的泛型
@@ -164,6 +186,13 @@ class Pair2<T,U>{
     }
     public U getSecond(){
         return second;
+    }
+}
+
+class NumberPair<T extends Number,U extends Number> extends Pair2<T,U>{
+
+    public NumberPair(T t, U u){
+        super(t,u);
     }
 }
 
