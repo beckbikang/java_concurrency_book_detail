@@ -1,4 +1,4 @@
-package head.first.dp;
+package head.first.dp.strategy;
 
 public class strategyM1 {
 

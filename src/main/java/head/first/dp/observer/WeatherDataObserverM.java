@@ -1,4 +1,4 @@
-package head.first.dp;
+package head.first.dp.observer;
 
 import java.util.Observable;
 import java.util.Observer;
