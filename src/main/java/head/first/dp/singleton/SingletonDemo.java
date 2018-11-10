@@ -1,4 +1,4 @@
-package head.first.dp.Singleton;
+package head.first.dp.singleton;
 
 public class SingletonDemo {
 

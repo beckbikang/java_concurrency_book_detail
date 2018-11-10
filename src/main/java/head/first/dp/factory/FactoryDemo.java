@@ -1,11 +1,5 @@
 package head.first.dp.factory;
 
-/**
- * @ Author     ：bikang1@staff.weibo.com
- * @ Date       ：Created in 下午4:57 2018/11/10
- * @ Description：
- * @ Modified By：
- */
 public class FactoryDemo {
 
 

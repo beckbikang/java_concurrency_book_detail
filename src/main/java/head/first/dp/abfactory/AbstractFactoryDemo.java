@@ -1,11 +1,6 @@
 package head.first.dp.abfactory;
 
-/**
- * @ Author     ：bikang1@staff.weibo.com
- * @ Date       ：Created in 下午5:09 2018/11/10
- * @ Description：
- * @ Modified By：
- */
+
 public class AbstractFactoryDemo {
 
 
