@@ -13,7 +13,10 @@
 
 《java高并发详解》正添加  java concurrency
 
-《java设计模式》正添加  java design partner
+《java设计模式》添加中  java design partner
+
+    head first 设计模式
+    和菜鸟教程的设计模式：http://www.runoob.com/design-pattern/prototype-pattern.html
 
 《java算法》待添加  java Structure and algorithm
 
