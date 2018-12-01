@@ -68,6 +68,11 @@ A对象为B对象提供一种访问方式，以方便控制B对象的访问
 使用场景
      1、远程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理。
 
+###责任链模式
+
+将接收请求的对象组成的一个链
+
+
 
 ###观察者模式
 
