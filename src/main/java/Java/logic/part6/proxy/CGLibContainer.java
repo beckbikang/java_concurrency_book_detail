@@ -14,27 +14,36 @@ import net.sf.cglib.proxy.MethodProxy;
 import Java.logic.part6.annotation.SimpleInject;
 
 public class CGLibContainer {
+
+	//定义切点的方法
 	public static enum InterceptPoint {
 		BEFORE, AFTER, EXCEPTION
 	}
 
+	//注解的类的数组
 	static Class<?>[] aspects = new Class<?>[] { ServiceLogAspect.class, ExceptionAspect.class };
 
+	//注册类的每个切点后面注册的方法
 	static Map<Class<?>, Map<InterceptPoint, List<Method>>> interceptMethodsMap = new HashMap<>();
 
 	static {
+		//初始化
 		init();
 	}
 
 	private static void init() {
+		//aspect监控类列表
 		for (Class<?> cls : aspects) {
+			//获取aspect的监控类
 			Aspect aspect = cls.getAnnotation(Aspect.class);
 			if (aspect != null) {
+				//获取方法
 				Method before = getMethod(cls, "before", new Class<?>[] { Object.class, Method.class, Object[].class });
 				Method after = getMethod(cls, "after",
 						new Class<?>[] { Object.class, Method.class, Object[].class, Object.class });
 				Method exception = getMethod(cls, "exception",
 						new Class<?>[] { Object.class, Method.class, Object[].class, Throwable.class });
+				//获取监控类中需要监控的类的列表
 				Class<?>[] intercepttedArr = aspect.value();
 				for (Class<?> interceptted : intercepttedArr) {
 					addInterceptMethod(interceptted, InterceptPoint.BEFORE, before);
@@ -44,7 +53,7 @@ public class CGLibContainer {
 			}
 		}
 	}
-
+	//获取当前class的方法
 	private static Method getMethod(Class<?> cls, String name, Class<?>[] paramTypes) {
 		try {
 			return cls.getMethod(name, paramTypes);
@@ -57,6 +66,7 @@ public class CGLibContainer {
 		if (method == null) {
 			return;
 		}
+		//找出每个class的InterceptPoint的方法列表
 		Map<InterceptPoint, List<Method>> map = interceptMethodsMap.get(cls);
 		if (map == null) {
 			map = new HashMap<>();
@@ -70,6 +80,7 @@ public class CGLibContainer {
 		methods.add(method);
 	}
 
+	//获取方法列表
 	static List<Method> getInterceptMethods(Class<?> cls,
 			InterceptPoint point) {
 		Map<InterceptPoint, List<Method>> map = interceptMethodsMap.get(cls);
@@ -83,6 +94,7 @@ public class CGLibContainer {
 		return methods;
 	}
 
+	//代理注册对象
 	static class AspectInterceptor implements MethodInterceptor {
 		@Override
 		public Object intercept(Object object, Method method, 
@@ -117,6 +129,7 @@ public class CGLibContainer {
 		}
 	}
 
+	//使用代理注册的对象
 	private static <T> T createInstance(Class<T> cls) 
 			throws InstantiationException, IllegalAccessException {
 		if (!interceptMethodsMap.containsKey(cls)) {
@@ -128,6 +141,7 @@ public class CGLibContainer {
 		return (T) enhancer.create();
 	}
 
+	//创建对象
 	public static <T> T getInstance(Class<T> cls) {
 		try {
 			T obj = createInstance(cls);

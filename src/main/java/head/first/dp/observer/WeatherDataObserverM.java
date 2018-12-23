@@ -70,6 +70,7 @@ class CurrentCondDisplay implements Observer, Displayer{
     private float pressure;
 
     Observable observable;
+
     public CurrentCondDisplay(Observable o){
         this.observable = o;
         observable.addObserver(this);
