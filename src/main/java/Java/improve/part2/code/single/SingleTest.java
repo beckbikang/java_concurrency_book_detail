@@ -1,6 +1,5 @@
 package Java.improve.part2.code.single;
 
-import java.io.Serializable;
 import java.util.concurrent.CountDownLatch;
 
 public class SingleTest {
