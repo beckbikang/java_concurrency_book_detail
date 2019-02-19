@@ -6,10 +6,16 @@
 
 《java7并发编程实战》已阅读和完成了绝大部分   java concurrency
 
+《Java程序性能优化》 已经读完这本书。 实践的例子待添加
+      
+      https://book.douban.com/subject/19969386/
+      
+
 《java编程的逻辑》正在添加  java base
     
     书籍项目的代码地址：https://github.com/swiftma/program-logic
-        
+       
+      
 
 《java高并发详解》正添加  java concurrency
 
