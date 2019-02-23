@@ -5,12 +5,7 @@ import net.sf.cglib.proxy.Enhancer;
 import javax.security.auth.Subject;
 import java.lang.reflect.Proxy;
 
-/**
- * @ Author     ：bikang1@staff.weibo.com
- * @ Date       ：Created in 上午11:28 2019/2/21
- * @ Description：
- * @ Modified By：
- */
+
 public class StaticProxyer {
 
     public static void main(String[] args){

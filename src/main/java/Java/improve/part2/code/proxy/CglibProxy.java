@@ -5,12 +5,6 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
-/**
- * @ Author     ：bikang1@staff.weibo.com
- * @ Date       ：Created in 下午1:35 2019/2/21
- * @ Description：
- * @ Modified By：
- */
 public class CglibProxy implements MethodInterceptor {
 
 
